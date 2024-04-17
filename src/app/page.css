@@ -1,0 +1,44 @@
+main {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+#pix-list {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+    padding: 0;
+}
+
+.pix-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 300px;
+    justify-content: center;
+    padding: 15px 30px;
+    list-style-type: none;
+    box-shadow: 0px 5px 50px rgba(0, 0, 0, 0.267);
+    border-radius: 10px;
+}
+
+.pix-container>.pix-title,
+.pix-description,
+.pix-date {
+    text-align: center;
+    border-radius: 5px;
+    margin: 5px;
+    padding: 10px 10px;
+}
+
+.pix-title,
+.pix-date {
+    background-color: gray;
+}
+
+.pix-description {
+    background-color: rgb(177, 177, 177);
+}
