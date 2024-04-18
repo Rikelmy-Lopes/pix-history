@@ -1,13 +1,11 @@
-
-
 'use client';
 
 import { useEffect, useState } from 'react';
 import './index.css';
-import { IPix } from '@/state/state';
 import axios from 'axios';
 import { getLocalStorage } from '@/utils/localStorage';
 import { useRouter } from 'next/router';
+import { IPix } from '@/@types/pix';
 
 export default function Home() {
   const router = useRouter();
@@ -63,12 +61,12 @@ export default function Home() {
     <main>
       <ul id='pix-list'>
         {
-          pixs.map(({ title, message, createAt }, index) => {
+          pixs.map(({ title, message, createdAt }, index) => {
             return (
               <li className='pix-container' key={index}>
                 <p className='pix-title'>Titulo: {title}</p>
                 <p className='pix-description'>Descrição: {message}</p>
-                <p className='pix-date'>Data: {new Date(createAt).toLocaleString('pt-br')}</p>
+                <p className='pix-date'>Data: {new Date(createdAt).toLocaleString('pt-br')}</p>
               </li>
             );
           })
