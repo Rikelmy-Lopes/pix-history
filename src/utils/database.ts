@@ -14,7 +14,3 @@ export async function updatePix(data: IPix) {
     pix_list: arrayUnion(data)
   });
 }
-
-(async () => {
-  await updatePix({ title: 'oola', 'message': 'tudo', createdAt: 125});
-})();
