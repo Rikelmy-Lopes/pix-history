@@ -1,4 +1,4 @@
-import { readDB, updateDB } from '@/utils/database';
+import { getAllPixs, updatePix } from '@/utils/database';
 import { isTokenValid } from '@/utils/jwt';
 import { NextApiRequest, NextApiResponse } from 'next';
 
@@ -8,11 +8,11 @@ async function POST(req: NextApiRequest, res: NextApiResponse) {
   if (!title || !message) {
     return res.status(400).json({ message: 'One or more fields not filled!'});
   }
-  await updateDB([{
+  await updatePix({
     title,
     message,
-    createAt: Date.now(),
-  }]);
+    createdAt: Date.now(),
+  });
   res.status(201).json({ message: 'Pix saved Successful!!!' });
 }
 
@@ -23,7 +23,7 @@ async function GET(req: NextApiRequest, res: NextApiResponse) {
   }
 
   if (isTokenValid(authorization)) {
-    const pixs = await readDB();
+    const pixs = await getAllPixs();
     return res.status(200).json(pixs);
   } else {
     return res.status(401).json({ message: 'Invalid Token!'});

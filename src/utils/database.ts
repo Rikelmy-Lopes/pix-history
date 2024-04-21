@@ -1,24 +1,20 @@
-import { readFile, writeFile } from 'fs/promises';
-// import { join } from 'path';
+import { IPix } from '@/@types/pix';
+import { db } from '@/db/firebase';
+import { arrayUnion, getDoc, updateDoc, doc, } from 'firebase/firestore/lite';
 
-export async function readDB() {
-  // const filePath = join(__dirname, '../db/database.json');
-  const filePath = './src/db/database.json';
-  const data = await readFile(filePath, { encoding: 'utf-8' });
-  if (!data) {
-    return [];
-  }
-  return JSON.parse(data) as unknown[];
-}
-  
-async function writeDB(value: unknown[]) {
-  // const filePath = join(__dirname, '../db/database.json');
-  const filePath = './src/db/database.json';
-  await writeFile(filePath, JSON.stringify(value), { encoding: 'utf-8' });
+export async function getAllPixs() {
+  const docRef = doc(db, 'database/pix-document');
+  const docSnap = await getDoc(docRef);
+  return (docSnap.exists() ? docSnap.data().pix_list : []) as IPix[];
 }
 
-
-export async function updateDB(value: unknown[]) {
-  const data = await readDB();
-  await writeDB([...value, ...data]);
+export async function updatePix(data: IPix) {
+  const pixDoc = doc(db, 'database/pix-document');
+  await updateDoc(pixDoc, {
+    pix_list: arrayUnion(data)
+  });
 }
+
+(async () => {
+  await updatePix({ title: 'oola', 'message': 'tudo', createdAt: 125});
+})();
